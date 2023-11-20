@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:qr_scanner/const.dart';
 import 'package:qr_scanner/size_config.dart';
+import 'package:qr_scanner/view/scanned%20output/scanned_output_view.dart';
 import 'package:qr_scanner_overlay/qr_scanner_overlay.dart';
 
 class ScannerView extends StatefulWidget {
@@ -53,11 +54,8 @@ class _ScannerViewState extends State<ScannerView> {
         ),
       ),
       child: Scaffold(
-        backgroundColor: Colors.transparent,
         appBar: AppBar(
-          backgroundColor: lightBlueColor.withOpacity(0.3),
           title: const Text("Scan QR Code"),
-          centerTitle: true,
           leading: IconButton(
             onPressed: () {
               Navigator.pop(context);
@@ -67,20 +65,6 @@ class _ScannerViewState extends State<ScannerView> {
               size: getProportionateScreenWidth(30),
             ),
           ),
-          actions: [
-            IconButton(
-                onPressed: () {},
-                icon: Icon(
-                  Icons.flash_on,
-                  size: getProportionateScreenWidth(30),
-                )),
-            IconButton(
-                onPressed: () {},
-                icon: Icon(
-                  Icons.cameraswitch_sharp,
-                  size: getProportionateScreenWidth(30),
-                )),
-          ],
         ),
         body: Center(
           child: Column(
@@ -102,6 +86,10 @@ class _ScannerViewState extends State<ScannerView> {
                           if (!isScanCompletes) {
                             String? code = barcode.rawValue;
                             isScanCompletes = true;
+                            print(code);
+                            Navigator.pushNamed(
+                                context, ScannedOutputView.routeName);
+                            // break;
                           }
                         }
                       },
