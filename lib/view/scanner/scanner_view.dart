@@ -18,6 +18,10 @@ class _ScannerViewState extends State<ScannerView> {
 
   late MobileScannerController cameraController;
 
+  void closeScreen() {
+    isScanCompletes = false;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -31,10 +35,6 @@ class _ScannerViewState extends State<ScannerView> {
   void dispose() {
     cameraController.dispose();
     super.dispose();
-  }
-
-  void closeScreen() {
-    isScanCompletes = false;
   }
 
   @override
