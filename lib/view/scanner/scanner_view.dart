@@ -92,6 +92,7 @@ class _ScannerViewState extends State<ScannerView> {
                                 onScreenChange: closeScreen,
                               ),
                             );
+                            break;
                           }
                         }
                       },

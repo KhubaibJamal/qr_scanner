@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:qr_scanner/components/custom_elevated_button.dart';
-import 'package:url_launcher/link.dart';
+import 'package:qr_scanner/utils/utils.dart';
 
 class VisitNow extends StatelessWidget {
   const VisitNow({
@@ -12,14 +12,11 @@ class VisitNow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Link(
-      uri: Uri.parse(url),
-      builder: (context, followLink) {
-        return CustomElevatedButton(
-          title: "Visit Now",
-          icon: Icons.open_in_new,
-          onPress: followLink!,
-        );
+    return CustomElevatedButton(
+      title: "Visit Now",
+      icon: Icons.open_in_new,
+      onPress: () {
+        Utils.launchURL(url, context);
       },
     );
   }

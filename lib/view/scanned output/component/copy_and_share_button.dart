@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:qr_scanner/components/custom_elevated_button.dart';
 import 'package:qr_scanner/const.dart';
+import 'package:qr_scanner/utils/utils.dart';
 
 class CopyAndShareButton extends StatelessWidget {
   const CopyAndShareButton({
@@ -25,6 +26,7 @@ class CopyAndShareButton extends StatelessWidget {
           onPress: () {
             // copy text in clipboard
             Clipboard.setData(ClipboardData(text: copyText));
+            Utils.flushBarMessage("Copy to Clipboard", context);
           },
         ),
         CustomElevatedButton(
