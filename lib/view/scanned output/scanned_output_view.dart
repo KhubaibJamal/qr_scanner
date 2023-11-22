@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:qr_scanner/components/custom_elevated_button.dart';
 import 'package:qr_scanner/const.dart';
 import 'package:qr_scanner/size_config.dart';
+import 'package:qr_scanner/view/scanned%20output/component/copy_and_share_button.dart';
+import 'package:qr_scanner/view/scanned%20output/component/output_container.dart';
+import 'package:qr_scanner/view/scanned%20output/component/visit_now.dart';
 import 'package:qr_scanner/view/welcome/welcome_view.dart';
 
 class ScannedOutputView extends StatelessWidget {
@@ -50,59 +51,15 @@ class ScannedOutputView extends StatelessWidget {
 
                 // text box
                 SizedBox(height: getProportionateScreenWidth(20)),
-                Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: getProportionateScreenWidth(10),
-                    vertical: getProportionateScreenWidth(10),
-                  ),
-                  height: SizeConfig.screenHeight! / 3.5,
-                  width: SizeConfig.screenWidth! * 0.9,
-                  decoration: const BoxDecoration(
-                    color: whiteColor,
-                  ),
-                  child: Text(
-                    arg.code,
-                    textAlign: TextAlign.justify,
-                    style: TextStyle(
-                      fontSize: getProportionateScreenWidth(15),
-                    ),
-                  ),
-                ),
+                OutputContainer(output: arg.code),
 
                 // copy and share button
                 SizedBox(height: SizeConfig.screenHeight! * 0.03),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    CustomElevatedButton(
-                      title: "Copy",
-                      icon: Icons.copy,
-                      backgroundColor: whiteColor,
-                      iconAndTextColor: Colors.black,
-                      buttonWidth: 150,
-                      onPress: () {
-                        // copy text in clipboard
-                        Clipboard.setData(ClipboardData(text: arg.code));
-                      },
-                    ),
-                    CustomElevatedButton(
-                      title: "share",
-                      icon: Icons.share,
-                      backgroundColor: whiteColor,
-                      iconAndTextColor: Colors.black,
-                      buttonWidth: 150,
-                      onPress: () {},
-                    ),
-                  ],
-                ),
+                CopyAndShareButton(copyText: arg.code),
 
                 // Visit now btn
                 SizedBox(height: SizeConfig.screenHeight! * 0.03),
-                CustomElevatedButton(
-                  title: "Visit Now",
-                  icon: Icons.open_in_new,
-                  onPress: () {},
-                ),
+                VisitNow(url: arg.code),
               ],
             ),
           ),
