@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:qr_scanner/components/custom_elevated_button.dart';
 import 'package:qr_scanner/const.dart';
 import 'package:qr_scanner/size_config.dart';
@@ -10,6 +11,8 @@ class ScannedOutputView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final CodeOutput arg =
+        ModalRoute.of(context)!.settings.arguments as CodeOutput;
     return Container(
       alignment: Alignment.center,
       height: SizeConfig.screenHeight!,
@@ -29,6 +32,7 @@ class ScannedOutputView extends StatelessWidget {
           title: const Text("Scanned Output"),
           leading: IconButton(
             onPressed: () {
+              arg.onScreenChange;
               Navigator.popAndPushNamed(context, WelcomeView.routeName);
             },
             icon: Icon(
@@ -57,7 +61,7 @@ class ScannedOutputView extends StatelessWidget {
                     color: whiteColor,
                   ),
                   child: Text(
-                    "data",
+                    arg.code,
                     textAlign: TextAlign.justify,
                     style: TextStyle(
                       fontSize: getProportionateScreenWidth(15),
@@ -76,7 +80,10 @@ class ScannedOutputView extends StatelessWidget {
                       backgroundColor: whiteColor,
                       iconAndTextColor: Colors.black,
                       buttonWidth: 150,
-                      onPress: () {},
+                      onPress: () {
+                        // copy text in clipboard
+                        Clipboard.setData(ClipboardData(text: arg.code));
+                      },
                     ),
                     CustomElevatedButton(
                       title: "share",
@@ -103,4 +110,10 @@ class ScannedOutputView extends StatelessWidget {
       ),
     );
   }
+}
+
+class CodeOutput {
+  final String code;
+  final Function onScreenChange;
+  CodeOutput({required this.code, required this.onScreenChange});
 }

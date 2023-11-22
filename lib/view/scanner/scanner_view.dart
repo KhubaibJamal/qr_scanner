@@ -29,8 +29,8 @@ class _ScannerViewState extends State<ScannerView> {
 
   @override
   void dispose() {
-    super.dispose();
     cameraController.dispose();
+    super.dispose();
   }
 
   void closeScreen() {
@@ -79,17 +79,19 @@ class _ScannerViewState extends State<ScannerView> {
                       controller: cameraController,
                       onDetect: (capture) {
                         final List<Barcode> barcodes = capture.barcodes;
-                        // final Uint8List? image = capture.image;
                         for (final barcode in barcodes) {
-                          // debugPrint('Barcode found! ${barcode.rawValue}');
-
                           if (!isScanCompletes) {
                             String? code = barcode.rawValue;
                             isScanCompletes = true;
-                            print(code);
-                            Navigator.pushNamed(
-                                context, ScannedOutputView.routeName);
-                            // break;
+                            // print(code);
+                            Navigator.pushReplacementNamed(
+                              context,
+                              ScannedOutputView.routeName,
+                              arguments: CodeOutput(
+                                code: code!,
+                                onScreenChange: closeScreen,
+                              ),
+                            );
                           }
                         }
                       },
@@ -104,7 +106,7 @@ class _ScannerViewState extends State<ScannerView> {
                   children: [
                     IconButton(
                         onPressed: () {
-                          cameraController.torchEnabled;
+                          cameraController.toggleTorch();
                         },
                         icon: Icon(
                           Icons.flash_on,
